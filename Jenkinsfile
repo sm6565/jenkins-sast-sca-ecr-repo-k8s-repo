@@ -41,8 +41,9 @@ pipeline {
 	stage('Kubernetes Deployment Web Application') {
 	   steps {
 	      withKubeConfig([credentialsId: 'kubelogin']) {
-		  sh('kubectl delete all --all -n devsecops')
-		  sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
+		  sh '''curl -LO "https://s3.us-west-2.amazonaws.com/amazon-eks/1.21.14/2022-10-31/bin/linux/amd64/kubectl"
+                        chmod +x kubectl       
+		        ./kubectl get pods'''
 		}
 	      }
    	}
